@@ -1,3 +1,24 @@
 <resources>
-    <string name="app_name">Notebelanja</string>
+    <string name="app_name">Tantangan 4</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="masuk">Halaman Masuk</string>
+    <string name="belum_punya_akun"><font color='00000000'>Belum punya akun? Klik disini untuk </font><font color='#FF018786'>Daftar</font></string>
+    <string name="login">Masuk</string>
+    <string name="catatan_belanja">Catatan Belanja</string>
+    <string name="logout">logout</string>
+    <string name="add_list">add_list</string>
+    <string name="welcome">Welcome</string>
+    <string name="nama_barang">nama barang</string>
+    <string name="harga_barang">harga barang</string>
+    <string name="jumlah_barang">jumlah barang</string>
+    <string name="daftar_belanja_anda">Daftar Belanja Anda</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 </resources>
