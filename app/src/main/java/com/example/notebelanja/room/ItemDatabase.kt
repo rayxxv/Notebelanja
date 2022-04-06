@@ -7,8 +7,8 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [User::class, Item::class], version = 1)
 abstract class ItemDatabase():RoomDatabase() {
-    abstract fun storeDao() : UserDao
-    abstract fun ItemDao() : ItemDao
+    abstract fun userDao() : UserDao
+    abstract fun itemDao() : ItemDao
 
     companion object{
         private var INSTANCE : ItemDatabase? = null
