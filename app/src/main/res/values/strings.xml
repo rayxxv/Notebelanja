@@ -3,7 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="masuk">Halaman Masuk</string>
-    <string name="belum_punya_akun"><font color='00000000'>Belum punya akun? Klik disini untuk </font><font color='#FF018786'>Daftar</font></string>
+    <string name="belum_punya_akun"><font color='#FFFFFF'>Belum punya akun? Klik disini untuk </font><font color='#79F7D9'>Daftar</font></string>
     <string name="login">Masuk</string>
     <string name="catatan_belanja">Catatan Belanja</string>
     <string name="logout">logout</string>
@@ -27,4 +27,5 @@
     <string name="daftar">Daftar</string>
     <string name="masukk">Masuk</string>
     <string name="selamat_bergabung">Selamat Bergabung</string>
+    <string name="signin">Masuk</string>
 </resources>

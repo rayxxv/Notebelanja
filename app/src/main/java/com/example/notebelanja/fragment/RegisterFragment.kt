@@ -1,20 +1,21 @@
 package com.example.notebelanja.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.notebelanja.R
 import com.example.notebelanja.databinding.FragmentRegisterBinding
 import com.example.notebelanja.room.ItemDatabase
 import com.example.notebelanja.room.User
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
 
+@DelicateCoroutinesApi
 class RegisterFragment : Fragment() {
     private var mDB:ItemDatabase?=null
     private var _binding: FragmentRegisterBinding? = null
@@ -27,7 +28,8 @@ class RegisterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    )
+    : View {
         _binding = FragmentRegisterBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -38,45 +40,32 @@ class RegisterFragment : Fragment() {
 
         binding.btnDaftar.setOnClickListener {
             when {
-                binding.etUsername.text.isNullOrEmpty() -> {
-                    binding.wrapUsername.error = "Silahkan masukan username anda !"
-                }
-                binding.etEmail.text.isNullOrEmpty() -> {
-                    binding.wrapEmail.error = "Silahkan masukan email anda !"
-                }
-                binding.etPassword.text.isNullOrEmpty() -> {
-                    binding.wrapPassword.error = "Silahkan masukan password anda !"
-                }
-                binding.etConfirmPassword.text.isNullOrEmpty() -> {
-                    binding.wrapConfirmPassword.error = "Silahkan konfirmasi password anda !"
+                binding.etUsername.text.isNullOrEmpty() || binding.etEmail.text.isNullOrEmpty() || binding.etPassword.text.isNullOrEmpty() || binding.etConfirmPassword.text.isNullOrEmpty() ->{
+                    Toast.makeText(activity, "Terdapat Data Yang Belum Terisi", Toast.LENGTH_SHORT).show()
                 }
                 binding.etPassword.text.toString() != binding.etConfirmPassword.text.toString() -> {
-                    binding.wrapConfirmPassword.error = "Password anda tidak sesuai !"
-                    binding.etConfirmPassword.setText("")
+                    Toast.makeText(activity, "Password anda tidak sesuai", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-                    val User = User(
+                    val user = User(
                         null,
                         binding.etUsername.text.toString(),
                         binding.etEmail.text.toString(),
                         binding.etPassword.text.toString()
                     )
                     GlobalScope.async {
-                        val result =mDB?.userDao()?.addUser(User)
+                        val result =mDB?.userDao()?.addUser(user)
                         activity?.runOnUiThread {
                             if (result != 0.toLong()){
                                 Toast.makeText(activity, "Pendaftaran akun anda berhasil", Toast.LENGTH_SHORT).show()
                             }else{
-                                Toast.makeText(activity, "Pendaftaran gagal", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(activity, "Pendaftaran akun anda gagal", Toast.LENGTH_SHORT).show()
                             }
                             onStop()
                         }
                     }
-                    val username = binding.etUsername.text.toString()
-                    val bundle = Bundle().apply {
-                        putString(USERNAME, username)
-                    }
-                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment2, bundle)
+
+                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment2)
                 }
             }
         }
