@@ -38,7 +38,7 @@ class MainMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preferences = requireContext().getSharedPreferences(LoginFragment.AKUN, Context.MODE_PRIVATE)
-        binding.tvWelcome.text = "Welcome ${preferences.getString(LoginFragment.USERNAME,null)}"
+        binding.tvWelcome.text = "Welcome to Notedshop"
 
         mDb = ItemDatabase.getInstance(requireContext())
         adapter = ItemAdapter()
@@ -48,7 +48,7 @@ class MainMenuFragment : Fragment() {
         fetchData()
         logout()
         binding.fabNewItem.setOnClickListener {
-            findNavController().navigate(R.id.action_mainMenuFragment_to_loginFragment)
+            findNavController().navigate(R.id.action_mainMenuFragment_to_addFragment)
         }
     }
     fun fetchData(){
@@ -63,8 +63,8 @@ class MainMenuFragment : Fragment() {
     }
     fun logout(){
         binding.tvLogout.setOnClickListener {
-            val dialogKonfirmasi = AlertDialog.Builder(requireContext())
-            dialogKonfirmasi.apply{
+            val alert = AlertDialog.Builder(requireContext())
+            alert.apply{
                 setTitle("Logout")
                 setMessage("Apakah anda yakin ingin log out?")
                 setNegativeButton("Batal"){dialog,which->
@@ -77,7 +77,7 @@ class MainMenuFragment : Fragment() {
                     findNavController().navigate(R.id.action_mainMenuFragment_to_loginFragment)
                 }
             }
-            dialogKonfirmasi.show()
+            alert.show()
         }
     }
     override fun onDestroy() {

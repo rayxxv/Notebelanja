@@ -42,10 +42,8 @@ class LoginFragment : Fragment() {
 
         val loginscreen: SharedPreferences = requireActivity().getSharedPreferences(AKUN, Context.MODE_PRIVATE)
         if (loginscreen!!.getString(USERNAME,null)!=null){
-
             findNavController().navigate(R.id.action_loginFragment_to_mainMenuFragment)
-            val username = loginscreen.getString(USERNAME,null)
-            Toast.makeText(context, "Selamat datang $username", Toast.LENGTH_SHORT).show()
+
         }
 
         binding.btnDaftar.setOnClickListener {
@@ -58,8 +56,6 @@ class LoginFragment : Fragment() {
                 activity?.runOnUiThread {
                     if (flags == true) {
                         val sharpref: SharedPreferences.Editor = loginscreen.edit()
-                        sharpref.putString("username", binding.etUsername.text.toString())
-                        sharpref.apply()
                         findNavController().navigate(R.id.action_loginFragment_to_mainMenuFragment)
                     } else {
                         Toast.makeText(context, "Tidak Berhasil Login", Toast.LENGTH_SHORT).show()

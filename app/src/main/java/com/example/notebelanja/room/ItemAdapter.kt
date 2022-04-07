@@ -24,8 +24,8 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.binding) {
             tvNamaBarang.text = listItem[position].nama_item
-            tvHargaBarang.text = ": ${listItem[position].harga_barang.toString()}"
-            tvJumlahBarang.text = ": ${listItem[position].jumlah_barang.toString()}"
+            tvHargaBarang.text = listItem[position].harga_barang.toString()
+            tvJumlahBarang.text = listItem[position].jumlah_barang.toString()
 
 
             btnDelete.setOnClickListener {
@@ -47,10 +47,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
                     .setNegativeButton("Batal"){p0,p1->
                         p0.dismiss()
                     }
-                    .setTitle("Konfirmasi Hapus")
-                    .setMessage("Apakah anda yakin ingin menghapus data ${listItem[position].nama_item}")
-                    .create()
-                    .show()
+                    .setMessage("Apakah anda yakin ingin menghapus note anda").create().show()
             }
         }
     }

@@ -34,5 +34,17 @@
         <action
             android:id="@+id/action_mainMenuFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_addFragment"
+            app:destination="@id/addFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/addFragment"
+        android:name="com.example.notebelanja.fragment.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_addFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment" />
+    </dialog>
 </navigation>
