@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.notebelanja.MainActivity
 import com.example.notebelanja.R
 import com.example.notebelanja.databinding.FragmentMainMenuBinding
 import com.example.notebelanja.room.ItemAdapter
@@ -46,6 +47,7 @@ class MainMenuFragment : Fragment() {
         binding.rvList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         fetchData()
         logout()
+
         binding.fabNewItem.setOnClickListener {
             findNavController().navigate(R.id.action_mainMenuFragment_to_addFragment)
         }

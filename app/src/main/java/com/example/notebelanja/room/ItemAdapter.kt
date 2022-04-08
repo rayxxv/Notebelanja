@@ -4,10 +4,14 @@ import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notebelanja.MainActivity
+import com.example.notebelanja.R
 import com.example.notebelanja.databinding.ItemListBinding
 import com.example.notebelanja.fragment.MainMenuFragment
 import com.example.notebelanja.fragment.UpdateFragment
@@ -17,19 +21,6 @@ import kotlinx.coroutines.async
 
 class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
     private val listItem = mutableListOf<Item>()
-    
-    private val diffCallback = object : DiffUtil.ItemCallback<Item>() {
-        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
-        }
-    }
-
-    private val differ = AsyncListDiffer(this, diffCallback)
-    fun submitData(value: List<Item>) = differ.submitList(value)
 
     class ViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -44,12 +35,12 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
             tvHargaBarang.text = listItem[position].harga_barang.toString()
             tvJumlahBarang.text = listItem[position].jumlah_barang.toString()
 
-
             btnEdit.setOnClickListener {
                 val activity = it.context as MainActivity
                 val dialogFragment = UpdateFragment(listItem[position])
                 dialogFragment.show(activity.supportFragmentManager, null)
             }
+
             btnDelete.setOnClickListener {
                 AlertDialog.Builder(it.context)
                     .setPositiveButton("Ya"){p0,p1 ->
@@ -73,6 +64,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
             }
         }
     }
+
 
     override fun getItemCount(): Int = listItem.size
     fun setData(itemList: List<Item>) {

@@ -11,8 +11,10 @@ import com.example.notebelanja.R
 import com.example.notebelanja.databinding.FragmentUpdateBinding
 import com.example.notebelanja.room.Item
 import com.example.notebelanja.room.ItemDatabase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 
 
 class UpdateFragment() : DialogFragment() {
@@ -20,6 +22,9 @@ class UpdateFragment() : DialogFragment() {
     private val binding get() = _binding!!
     private var mDb: ItemDatabase? = null
     lateinit var itemSelected : Item
+    constructor(itemSelected:Item):this(){
+        this.itemSelected = itemSelected
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +38,12 @@ class UpdateFragment() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         mDb = ItemDatabase.getInstance(requireContext())
 
+        if(this::itemSelected.isInitialized){
+            binding.tvTitle.text = "Update Harga ${itemSelected.nama_item}"
+        }
+
         binding.btnUpdate.setOnClickListener {
+            findNavController().navigate(R.id.action_mainMenuFragment_to_updateFragment)
             when {
                 binding.etHarga.text.isNullOrEmpty() -> {
                     binding.wrapHarga.error = "Harga barang belum dimasukan"
@@ -55,7 +65,8 @@ class UpdateFragment() : DialogFragment() {
                             if (result != 0) {
                                 Toast.makeText(it.context, "Note  berhasil terupdate", Toast.LENGTH_SHORT).show()
                                 findNavController().navigate(R.id.action_updateFragment_to_mainMenuFragment)
-                            } else {
+                            }
+                            else {
                                 Toast.makeText(it.context, "Noted gagal diubah", Toast.LENGTH_SHORT).show()
                             }
                         }
@@ -65,7 +76,6 @@ class UpdateFragment() : DialogFragment() {
             }
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
