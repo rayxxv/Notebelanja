@@ -62,7 +62,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_harga_barang" />
 
         <TextView
-            android:id="@+id/tv_harga_jual"
+            android:id="@+id/tv_teks_jumlah"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/jumlah_barang"
@@ -83,6 +83,16 @@
             android:src="@drawable/ic_delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_Edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_delete"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

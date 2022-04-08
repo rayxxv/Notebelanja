@@ -38,12 +38,11 @@ class MainMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preferences = requireContext().getSharedPreferences(LoginFragment.AKUN, Context.MODE_PRIVATE)
-        binding.tvWelcome.text = "Welcome to Notedshop"
+        binding.tvWelcome.text = "Welcome ${preferences.getString(LoginFragment.USERNAME,null)}"
 
         mDb = ItemDatabase.getInstance(requireContext())
         adapter = ItemAdapter()
         binding.rvList.adapter = adapter
-
         binding.rvList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         fetchData()
         logout()
@@ -54,7 +53,7 @@ class MainMenuFragment : Fragment() {
     fun fetchData(){
         GlobalScope.launch {
             val listItem = mDb?.itemDao()?.getAllItem()
-            runBlocking(Dispatchers.Main) {
+            activity?.runOnUiThread {
                 listItem?.let {
                     adapter.setData(it)
                 }
