@@ -1,21 +1,16 @@
-package com.example.notebelanja.room
+package com.example.notebelanja.adapter
 
 import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notebelanja.MainActivity
-import com.example.notebelanja.R
 import com.example.notebelanja.databinding.ItemListBinding
 import com.example.notebelanja.fragment.MainMenuFragment
 import com.example.notebelanja.fragment.UpdateFragment
-import com.google.android.material.snackbar.Snackbar
+import com.example.notebelanja.room.Item
+import com.example.notebelanja.room.ItemDatabase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 
