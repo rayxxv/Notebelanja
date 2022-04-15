@@ -4,7 +4,7 @@ import androidx.room.*
 
 @Dao
 interface ItemDao {
-    @Query("SELECT * FROM Item")
+    @Query("SELECT * FROM item_table")
     fun getAllItem():List<Item>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

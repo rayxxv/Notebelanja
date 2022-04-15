@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
+import com.example.notebelanja.ItemRepository
 import com.example.notebelanja.R
 import com.example.notebelanja.databinding.FragmentUpdateBinding
 import com.example.notebelanja.room.Item
@@ -21,6 +22,8 @@ class UpdateFragment() : DialogFragment() {
     private var _binding: FragmentUpdateBinding? = null
     private val binding get() = _binding!!
     private var mDb: ItemDatabase? = null
+    lateinit var ItemRepository: ItemRepository
+
     lateinit var itemSelected : Item
     constructor(itemSelected:Item):this(){
         this.itemSelected = itemSelected
@@ -36,7 +39,7 @@ class UpdateFragment() : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mDb = ItemDatabase.getInstance(requireContext())
+        ItemRepository = ItemRepository(requireContext())
 
         if(this::itemSelected.isInitialized){
             binding.tvTitle.text = "Update Harga ${itemSelected.nama_item}"
@@ -60,7 +63,7 @@ class UpdateFragment() : DialogFragment() {
                     objectItem.jumlah_barang = jumlah
 
                     GlobalScope.async {
-                        val result = mDb?.itemDao()?.updateItem(objectItem)
+                        val result = ItemRepository.updateItem(objectItem)
                         activity?.runOnUiThread {
                             if (result != 0) {
                                 Toast.makeText(it.context, "Note  berhasil terupdate", Toast.LENGTH_SHORT).show()

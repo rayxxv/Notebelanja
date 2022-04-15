@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.notebelanja.ItemRepository
 import com.example.notebelanja.R
 import com.example.notebelanja.databinding.FragmentMainMenuBinding
 import com.example.notebelanja.adapter.ItemAdapter
@@ -22,6 +23,8 @@ class MainMenuFragment : Fragment() {
     private var mDb: ItemDatabase? = null
     private var _binding: FragmentMainMenuBinding? = null
     private val binding get() = _binding!!
+    lateinit var ItemRepository: ItemRepository
+
     private lateinit var adapter: ItemAdapter
     private lateinit var preferences: SharedPreferences
 
@@ -38,7 +41,8 @@ class MainMenuFragment : Fragment() {
         preferences = requireContext().getSharedPreferences(LoginFragment.AKUN, Context.MODE_PRIVATE)
         binding.tvWelcome.text = "Welcome ${preferences.getString(LoginFragment.USERNAME,null)}"
 
-        mDb = ItemDatabase.getInstance(requireContext())
+//        mDb = ItemDatabase.getInstance(requireContext())
+        ItemRepository = ItemRepository(requireContext())
         adapter = ItemAdapter()
         binding.rvList.adapter = adapter
         binding.rvList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
@@ -51,7 +55,7 @@ class MainMenuFragment : Fragment() {
     }
     fun fetchData(){
         GlobalScope.launch {
-            val listItem = mDb?.itemDao()?.getAllItem()
+            val listItem = ItemRepository.getAllItem()
             activity?.runOnUiThread {
                 listItem?.let {
                     adapter.setData(it)

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.notebelanja.ItemRepository
 import com.example.notebelanja.MainActivity
 import com.example.notebelanja.databinding.ItemListBinding
 import com.example.notebelanja.fragment.MainMenuFragment
@@ -16,6 +17,7 @@ import kotlinx.coroutines.async
 
 class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
     private val listItem = mutableListOf<Item>()
+    lateinit var itemRepository: ItemRepository
 
     class ViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -41,7 +43,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
                     .setPositiveButton("Ya"){p0,p1 ->
                         val mDb = ItemDatabase.getInstance(holder.itemView.context)
                         GlobalScope.async {
-                            val result = mDb?.itemDao()?.deleteItem(listItem[position])
+                            val result = itemRepository.deleteItem(listItem[position])
                             (holder.itemView.context as MainActivity).runOnUiThread {
                                 if (result != 0 ){
                                     Toast.makeText(it.context, "${listItem[position].nama_item} berhasil dihapus", Toast.LENGTH_SHORT).show()
